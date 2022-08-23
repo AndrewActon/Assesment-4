@@ -35,13 +35,42 @@ module.exports = {
 
         const userName = {
             firstName: first,
-            lastName: last
+            lastName: last,
+            nickname: '',
         }
 
         user.push(userName)
         console.log(userName)
 
-        res.status(200).send(user)
-    }
 
+        res.status(200).send(user)
+    },
+
+    addNickname: (req, res) => {
+        console.log('nickname added')
+        console.log(req.body)
+        const {nick} = req.body
+        console.log(nick)
+
+
+        if(user[0]){
+            user[0].nickname = nick
+            console.log(user[0].nickname)
+            res.status(200).send(`Cool name! I'll call you ${user[0].nickname} instead of ${user[0].firstName}.`)
+        } else {
+            res.status(200).send('Please enter a first and last name.')
+        }
+
+    },
+
+    deleteNick: (req, res) => {
+        console.log('delete nick')
+
+        if(user[0]){
+            user[0].nickname = ''
+            res.status(200).send(`Okay! I'll just call you ${user[0].firstName}.`)
+        }  else{
+            res.status(200).send('Please enter a first, last, and nickname.')
+        }
+    }
 }
